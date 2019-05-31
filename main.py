@@ -5,7 +5,6 @@ from validation import Validation
 import parameters as param
 from build_dataset import BuildDataset
 from testing import Testing
-from train_word2vec import TrainWord2Vec
 
 class Main:
 
