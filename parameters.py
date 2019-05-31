@@ -36,8 +36,8 @@ mode_list = [None,  # mode_list[0]
              'build_testing_data',  # mode_list[3]
              'train',  # mode_list[4] train
              'test',  # mode_list[5] test
-             'build_DUC_testing_data',  # mode_list[6] #12
-             'test_DUC',  # mode_list[7] test #13
+             'build_DUC_testing_data',  # mode_list[6]
+             'test_DUC',  # mode_list[7] test
              ]
 
 mode = mode_list[1]
@@ -72,9 +72,11 @@ read_lines = 9111222333 #a very large number for reading all lines
 # Train paths
 train_dir = dataset_dir + 'train/'  # path to initial train files
 train_data_dir = train_dir + 'train_{}_data/'.format(model_id)  # path to x, y, vocabulary etc.
+train_article_file_path = train_dir + 'train_{}_article.txt'.format(model_id)
+train_title_file_path = train_dir + 'train_{}_title.txt'.format(model_id)
+
 train_baselinegigaword_article_file_path = train_dir + 'train_baselinegigaword_article.txt'
 train_baselinegigaword_title_file_path = train_dir + 'train_baselinegigaword_title.txt'
-
 train_neg100gigaword_article_file_path = train_dir + 'train_neg100gigaword_article.txt'
 train_neg100gigaword_title_file_path = train_dir + 'train_neg100gigaword_title.txt'
 train_neg200gigaword_article_file_path = train_dir + 'train_neg200gigaword_article.txt'
