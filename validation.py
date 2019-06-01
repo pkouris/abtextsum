@@ -53,7 +53,7 @@ class Validation:
 
 
     @staticmethod
-    # using official perl rouge implementation
+    # using official perl rouge implementation #
     def rouge_scores(system_summaries_dir,
                      model_summaries_dir,
                      evaluation_results_dir,
