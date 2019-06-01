@@ -14,3 +14,12 @@ def sort_by_second(input_list_of_tuples, descending=True):
         return sorted(input_list_of_tuples, key=lambda tup: tup[1])
 
 
+def sort_by_third(input_list_of_tuples, descending=True):
+    if descending:
+        return sorted(input_list_of_tuples, key=lambda tup: -tup[2])
+    else:
+        return sorted(input_list_of_tuples, key=lambda tup: tup[2])
+
+
+
+

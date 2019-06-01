@@ -2776,7 +2776,7 @@ class DataPreprocessing:
             word_pos_list.append((w, wordnet_pos))
         return word_pos_list
 
-    def min_common_hyperonym_of_vocabulary(self, input_file_path='notes',
+    def min_common_hyperonym_of_vocabulary(self, input_file_path='path/to/file',
                                            output_dictionary_pickle_file="", output_dict_txt_file="",
                                            time_of_pass=1):
         stopword_list = nltk.corpus.stopwords.words('english')

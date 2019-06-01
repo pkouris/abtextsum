@@ -46,8 +46,7 @@ class Train:
                      '\tforward_only = ' + str(False) + '\n' + \
                      '\tusing_word2vec_embeddings = ' + str(param.using_word2vec_embeddings) + '\n' + \
                      '\tword_embeddings = ' + str(param.word_embendings) + '\n' + \
-                     '\ttrain_restore_saved_model = ' + str(param.train_restored_saved_model) + '\n' +\
-                     '\ttraining_on_collocations = ' + str(param.training_on_collocations) + '\n'
+                     '\ttrain_restore_saved_model = ' + str(param.train_restored_saved_model) + '\n'
 
     def train(self, x_chunks_dir, y_chunks_dir, model_name, logs_dir, mode, batch_size, model_dir,
               official_perl_rouge=True, start_epoch_no=1,  training_on_collocations=False):

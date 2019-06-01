@@ -22,40 +22,40 @@ class Testing:
             # '''
             system_summaries_file_path = \
                 self.generate_system_summaries(param.mode, param.model_name, param.model_dir,
-                                               param.test_subset_x_file_path,
+                                               param.test_x_file_path,
                                                param.word2int_file_path,
                                                param.int2word_file_path,
                                                param.maxlen_file_path,
-                                               param.test_subset_maxlen_file_path,
-                                               param.test_subset_system_summaries_dir,
-                                               param.test_subset_system_summaries_file_suffix,
+                                               param.test_maxlen_file_path,
+                                               param.test_system_summaries_dir,
+                                               param.test_system_summaries_file_suffix,
                                                param.batch_size)
 
-            if param.training_on_collocations:
-                self.remove_collocation_symbol_from_file(system_summaries_file_path)
+            #if param.training_on_collocations:
+            #    self.remove_collocation_symbol_from_file(system_summaries_file_path)
 
             t = time.time()
             time_generate_system_summaries = t - start_time
             # '''
             self.make_rouge_files(system_summaries_file_path=system_summaries_file_path,
-                                  model_summaries_file_path=param.test_subset_summary_file_path,
-                                  rouge_files_dir=param.test_subset_rouge_files_dir,
-                                  rouge_system_summaries_dir=param.test_subset_rouge_system_summaries_dir,
-                                  rouge_model_summaries_dir=param.test_subset_rouge_model_summaries_dir)
+                                  model_summaries_file_path=param.test_summary_file_path,
+                                  rouge_files_dir=param.test_rouge_files_dir,
+                                  rouge_system_summaries_dir=param.test_rouge_system_summaries_dir,
+                                  rouge_model_summaries_dir=param.test_rouge_model_summaries_dir)
             # '''
             time_make_rouge_files = time.time() - t
 
             self.rouge_scores(param.model_name,
                               system_summaries_file_path,
-                              param.test_subset_summary_file_path,
-                              param.test_subset_rouge_system_summaries_dir,
-                              param.test_subset_rouge_model_summaries_dir,
-                              param.test_subset_rouge_results_dir,
-                              param.test_subset_rouge_results_file_suffix,
+                              param.test_summary_file_path,
+                              param.test_rouge_system_summaries_dir,
+                              param.test_rouge_model_summaries_dir,
+                              param.test_rouge_results_dir,
+                              param.test_rouge_results_file_suffix,
                               time_generate_system_summaries, time_make_rouge_files, start_time)
 
-            self.remove_rouge_files(rouge_system_summaries_dir=param.test_subset_rouge_system_summaries_dir,
-                                    rouge_model_summaries_dir=param.test_subset_rouge_model_summaries_dir)
+            self.remove_rouge_files(rouge_system_summaries_dir=param.test_rouge_system_summaries_dir,
+                                    rouge_model_summaries_dir=param.test_rouge_model_summaries_dir)
         if testing_mode == 'simple_duc':
             # '''
             system_summaries_file_path = \
@@ -71,8 +71,8 @@ class Testing:
 
             # '''
 
-            if param.training_on_collocations:
-                self.remove_collocation_symbol_from_file(system_summaries_file_path)
+           # if param.training_on_collocations:
+           #     self.remove_collocation_symbol_from_file(system_summaries_file_path)
 
             t = time.time()
             time_generate_system_summaries = t - start_time
@@ -129,20 +129,20 @@ class Testing:
             system_summaries_file_path = 'docs/output_sum'  # system_generalized summary
             start_time = time.time()
             self.make_rouge_files_for_duc(system_summaries_file_path=system_summaries_file_path,
-                                          model_summaries_file_path_list=[param.test_cleanedduc_ref1_file_path,
-                                                                          param.test_cleanedduc_ref2_file_path,
-                                                                          param.test_cleanedduc_ref3_file_path,
-                                                                          param.test_cleanedduc_ref4_file_path],
+                                          model_summaries_file_path_list=[param.test_baselineduc_ref1_file_path,
+                                                                          param.test_baselineduc_ref2_file_path,
+                                                                          param.test_baselineduc_ref3_file_path,
+                                                                          param.test_baselineduc_ref4_file_path],
                                           rouge_files_dir=temp_dir,
                                           rouge_system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                                           rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
             t1 = time.time()
             self.rouge_scores(model_id=param.duc_model_id,
                               system_summaries_file_path=system_summaries_file_path,
-                              model_summaries_file_path=[param.test_cleanedduc_ref1_file_path,
-                                                         param.test_cleanedduc_ref2_file_path,
-                                                         param.test_cleanedduc_ref3_file_path,
-                                                         param.test_cleanedduc_ref4_file_path],
+                              model_summaries_file_path=[param.test_baselineduc_ref1_file_path,
+                                                         param.test_baselineduc_ref2_file_path,
+                                                         param.test_baselineduc_ref3_file_path,
+                                                         param.test_baselineduc_ref4_file_path],
                               system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                               model_summaries_dir=temp_dir + 'rouge_model_summaries/',
                               evaluation_results_dir=temp_dir + 'rouge_results/',
