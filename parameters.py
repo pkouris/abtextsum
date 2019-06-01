@@ -66,7 +66,7 @@ word2vec_file_path = "/word2vec/file/path"
 word_embendings = 'filename of word embendings'
 
 # building training dataset
-lines_per_chunk = 300000
+lines_per_chunk = 300000 #
 read_lines = 9111222333 #a very large number for reading all lines
 
 # Train paths
