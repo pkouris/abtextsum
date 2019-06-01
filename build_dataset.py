@@ -413,7 +413,7 @@ class BuildDataset:
         print('(7/8) X has been written to txt file: {}.'.format(data_dir + "x_" + purpose + ".txt"))
 
         if simple_to_full:
-            dir = param.test_subset_dir
+            dir = param.test_dir
             prefix = 'test_subset'
             if purpose == 'validation':
                 dir = param.validation_dir

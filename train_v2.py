@@ -32,7 +32,8 @@ class Train:
                    model_dir=param.model_dir,
                    official_perl_rouge=param.validation_official_perl_rouge,
                    start_epoch_no=param.start_epoch_no,
-                   training_on_collocations=param.training_on_collocations)
+                   #training_on_collocations=param.training_on_collocations
+                   )
 
     parameters_str = '\tstart_epoch_no = ' + str(param.start_epoch_no) + '\n' + \
                      '\tepochs_num = ' + str(param.epochs_num) + '\n' + \
@@ -204,7 +205,7 @@ class Train:
                         _, batch_no, loss = sess.run(fetches, feed_dict=train_feed_dict)
                         epoch_loss_list.append(loss)
                         batches_loss_list.append(loss)
-                        if batch_no % param.print_loss_per_baches == 0:
+                        if batch_no % param.print_loss_per_steps == 0:
                             avg_batch_loss = np.average(np.array(batches_loss_list))
                             avg_loss_per_batches_list.append(avg_batch_loss)
                             batches_loss_list = []
@@ -238,7 +239,8 @@ class Train:
                                                                           batch_size,
                                                                           file_prefix=file_prefix,
                                                                           official_perl_rouge=official_perl_rouge,
-                                                                          training_on_collocations=training_on_collocations)
+                                                                          #training_on_collocations=training_on_collocations
+                                                                          )
                             rouge1_per_epoch_list.append(rouge_scores_dict['rouge_1_f_score'])
                             rouge2_per_epoch_list.append(rouge_scores_dict['rouge_2_f_score'])
                             rougeL_per_epoch_list.append(rouge_scores_dict['rouge_l_f_score'])
@@ -365,7 +367,7 @@ class Train:
         plot(range(1, len(avg_loss_per_batches_list) + 1), avg_loss_per_batches_list)
         ylabel('Loss')
         xlabel('Batch')
-        title('Avg loss per batches (batches: {} of size: {})'.format(param.print_loss_per_baches, param.batch_size))
+        title('Avg loss per batches (batches: {} of size: {})'.format(param.print_loss_per_steps, param.batch_size))
         ax = subplot(312)
         r = range(1, len(rouge1_per_epoch_list) + 1)
         ax.plot(r, rouge1_per_epoch_list, color='blue', label='Rouge_1')
