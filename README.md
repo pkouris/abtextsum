@@ -26,7 +26,7 @@ BibTex:<br/>
 @inproceedings{kouris2019abstractive,
   title={Abstractive text summarization based on deep learning and semantic content generalization},
   author={Kouris, Panagiotis and Alexandridis, Georgios and Stafylopatis, Andreas},
-  booktitle={Proceedings of the 57th Conference of the Association for Computational Linguistics},
+  booktitle={Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
   month = jul,
   year={2019}
   address = {Florence, Italy},
