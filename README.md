@@ -1,8 +1,24 @@
 ### abtextsum
 This source code has been used in the experimental procedure of the following paper:
 
-Panagiotis Kouris, Georgios Alexandridis, Andreas Stafylopatis. 2019. Abstractive text summarization based on deep learning and semantic content generalization. _In Proceedings of the 57th Conference of the Association for Computational Linguistics_, pp. 5082-5092.
+Panagiotis Kouris, Georgios Alexandridis, Andreas Stafylopatis. 2019. Abstractive text summarization based on deep learning and semantic content generalization. _In Proceedings of the 57th Conference of the Association for Computational Linguistics_, pp. 5082-5092.<br/>
+<br/>
 
+
+BibTex:<br/>
+```
+@inproceedings{kouris2019abstractive,
+  title={Abstractive text summarization based on deep learning and semantic content generalization},
+  author={Kouris, Panagiotis and Alexandridis, Georgios and Stafylopatis, Andreas},
+  booktitle={Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
+  month = jul,
+  year={2019}
+  address = {Florence, Italy},
+  publisher = {Association for Computational Linguistics},
+  url = {https://www.aclweb.org/anthology/P19-1501},
+  pages={5082--5092},
+}
+```
 
 
 <!--
@@ -21,17 +37,3 @@ Panagiotis Kouris, Georgios Alexandridis, Andreas Stafylopatis. 2019. Abstractiv
 }
 ```
 -->
-BibTex:<br/>
-```
-@inproceedings{kouris2019abstractive,
-  title={Abstractive text summarization based on deep learning and semantic content generalization},
-  author={Kouris, Panagiotis and Alexandridis, Georgios and Stafylopatis, Andreas},
-  booktitle={Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics},
-  month = jul,
-  year={2019}
-  address = {Florence, Italy},
-  publisher = {Association for Computational Linguistics},
-  url = {https://www.aclweb.org/anthology/P19-1501},
-  pages={5082--5092},
-}
-```
