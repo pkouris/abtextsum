@@ -55,7 +55,7 @@ The process of training is performed by _Train_ Class (file _train_v2.py_) havin
 
 
 1. Post-processing of generalized summaries<br/>
-In the phase of testing, the task of post-processing of the generalized summaries, which are produced by the deep learning model, is required to replace the generalized concepts of the generalized summary with the specific ones from the corresponding original articles. This task is performed by _PostProcessing_ class by setting the parameters in __init__() method accordingly. More specifically, the mode should be set to _"lg"_ or _"neg"_ according to the employed text generalization strategy. Also, the hyperparameters of _neg_postprocessing()_ and _lg_postprocessing()_ methods for file paths, text similarity function and the context window should be set accordingly.
+In the phase of testing, the task of post-processing of the generalized summaries, which are produced by the deep learning model, is required to replace the generalized concepts of the generalized summary with the specific ones from the corresponding original articles. This task is performed by _PostProcessing_ class by setting the parameters in _\_\_init\_\_()_ method accordingly. More specifically, the mode should be set to _"lg"_ or _"neg"_ according to the employed text generalization strategy. Also, the hyperparameters of _neg_postprocessing()_ and _lg_postprocessing()_ methods for file paths, text similarity function and the context window should be set accordingly.
 
 
 1. Testing<br/>
