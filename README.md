@@ -5,7 +5,7 @@ Panagiotis Kouris, Georgios Alexandridis, Andreas Stafylopatis. 2019. Abstractiv
 <br/>
 
 
-This paper can be accessed from the [Proceedings of the 57th ACL Annual Meeting (2019)](https://www.aclweb.org/anthology/events/acl-2019/) or directly from [here](https://www.aclweb.org/anthology/P19-1501). 
+This paper is accessible in the [Proceedings of the 57th ACL Annual Meeting (2019)](https://www.aclweb.org/anthology/events/acl-2019/) or directly from [here](https://www.aclweb.org/anthology/P19-1501). 
 <br/> For citing, the BibTex follows:
 ```
 @inproceedings{kouris2019abstractive,
