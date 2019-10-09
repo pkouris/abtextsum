@@ -9,96 +9,26 @@ from pyrouge import Rouge155
 import os
 from build_dataset import BuildDataset
 import string
+import paths
+import argparse
 
 
 class Testing:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-mode', default="", help="\nmode values: gigaword, duc, duc75b\n"
+                                                  "e.g. python testing.py -mode gigaword")
 
-    def __init__(self, testing_mode='rouge_of_individual_files'):
+    def get_args(self):
+        return self.parser.parse_args()
+
+    def __init__(self):
         _ = None
-        start_time = time.time()
+        args = self.get_args()
 
 
-        if testing_mode == 'simple':
-            # '''
-            system_summaries_file_path = \
-                self.generate_system_summaries(param.mode, param.model_name, param.model_dir,
-                                               param.test_x_file_path,
-                                               param.word2int_file_path,
-                                               param.int2word_file_path,
-                                               param.maxlen_file_path,
-                                               param.test_maxlen_file_path,
-                                               param.test_system_summaries_dir,
-                                               param.test_system_summaries_file_suffix,
-                                               param.batch_size)
 
-            #if param.training_on_collocations:
-            #    self.remove_collocation_symbol_from_file(system_summaries_file_path)
 
-            t = time.time()
-            time_generate_system_summaries = t - start_time
-            # '''
-            self.make_rouge_files(system_summaries_file_path=system_summaries_file_path,
-                                  model_summaries_file_path=param.test_summary_file_path,
-                                  rouge_files_dir=param.test_rouge_files_dir,
-                                  rouge_system_summaries_dir=param.test_rouge_system_summaries_dir,
-                                  rouge_model_summaries_dir=param.test_rouge_model_summaries_dir)
-            # '''
-            time_make_rouge_files = time.time() - t
-
-            self.rouge_scores(param.model_name,
-                              system_summaries_file_path,
-                              param.test_summary_file_path,
-                              param.test_rouge_system_summaries_dir,
-                              param.test_rouge_model_summaries_dir,
-                              param.test_rouge_results_dir,
-                              param.test_rouge_results_file_suffix,
-                              time_generate_system_summaries, time_make_rouge_files, start_time)
-
-            self.remove_rouge_files(rouge_system_summaries_dir=param.test_rouge_system_summaries_dir,
-                                    rouge_model_summaries_dir=param.test_rouge_model_summaries_dir)
-        if testing_mode == 'simple_duc':
-            # '''
-            system_summaries_file_path = \
-                self.generate_system_summaries(param.mode, param.model_id, param.model_dir,
-                                               param.test_duc_x_file_path,
-                                               param.word2int_file_path,
-                                               param.int2word_file_path,
-                                               param.maxlen_file_path,
-                                               param.test_duc_maxlen_file_path,
-                                               param.test_duc_system_summaries_dir,
-                                               param.test_duc_system_summaries_file_suffix,
-                                               param.batch_size)
-
-            # '''
-
-           # if param.training_on_collocations:
-           #     self.remove_collocation_symbol_from_file(system_summaries_file_path)
-
-            t = time.time()
-            time_generate_system_summaries = t - start_time
-            # '''
-            self.make_rouge_files_for_duc(system_summaries_file_path=system_summaries_file_path,
-                                          model_summaries_file_path_list=[param.test_duc_ref1, param.test_duc_ref2,
-                                                                          param.test_duc_ref3, param.test_duc_ref4],
-                                          rouge_files_dir=param.test_duc_rouge_files_dir,
-                                          rouge_system_summaries_dir=param.test_duc_rouge_system_summaries_dir,
-                                          rouge_model_summaries_dir=param.test_duc_rouge_model_summaries_dir)
-            # '''
-            time_make_rouge_files = time.time() - t
-
-            self.rouge_scores(param.duc_model_id,
-                              system_summaries_file_path,
-                              param.test_duc_golden_summary_file_path_list,
-                              param.test_duc_rouge_system_summaries_dir,
-                              param.test_duc_rouge_model_summaries_dir,
-                              param.test_duc_rouge_results_dir,
-                              param.test_duc_rouge_results_file_suffix,
-                              time_generate_system_summaries, time_make_rouge_files, start_time)
-
-            self.remove_rouge_files(rouge_system_summaries_dir=param.test_duc_rouge_system_summaries_dir,
-                                    rouge_model_summaries_dir=param.test_duc_rouge_model_summaries_dir)
-
-        elif testing_mode == 'rouge_of_individual_files':
+        if args.mode == 'gigaword':
             temp_dir = 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'
 
@@ -124,25 +54,25 @@ class Testing:
                 rouge_system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                 rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
 
-        elif testing_mode == 'duc_rouge_of_individual_files':
+        elif args.mode == 'duc':
             temp_dir = 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'  # system_generalized summary
             start_time = time.time()
             self.make_rouge_files_for_duc(system_summaries_file_path=system_summaries_file_path,
-                                          model_summaries_file_path_list=[param.test_baselineduc_ref1_file_path,
-                                                                          param.test_baselineduc_ref2_file_path,
-                                                                          param.test_baselineduc_ref3_file_path,
-                                                                          param.test_baselineduc_ref4_file_path],
+                                          model_summaries_file_path_list=[paths.test_baselineduc_ref1_file_path,
+                                                                          paths.test_baselineduc_ref2_file_path,
+                                                                          paths.test_baselineduc_ref3_file_path,
+                                                                          paths.test_baselineduc_ref4_file_path],
                                           rouge_files_dir=temp_dir,
                                           rouge_system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                                           rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
             t1 = time.time()
             self.rouge_scores(model_id=param.duc_model_id,
                               system_summaries_file_path=system_summaries_file_path,
-                              model_summaries_file_path=[param.test_baselineduc_ref1_file_path,
-                                                         param.test_baselineduc_ref2_file_path,
-                                                         param.test_baselineduc_ref3_file_path,
-                                                         param.test_baselineduc_ref4_file_path],
+                              model_summaries_file_path=[paths.test_baselineduc_ref1_file_path,
+                                                         paths.test_baselineduc_ref2_file_path,
+                                                         paths.test_baselineduc_ref3_file_path,
+                                                         paths.test_baselineduc_ref4_file_path],
                               system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                               model_summaries_dir=temp_dir + 'rouge_model_summaries/',
                               evaluation_results_dir=temp_dir + 'rouge_results/',
@@ -153,7 +83,7 @@ class Testing:
             self.remove_rouge_files(
                 rouge_system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                 rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
-        elif testing_mode == 'rouge_of_individual_files_capped_at_75bytes':
+        elif args.mode == 'duc75b':
             temp_dir = 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'  # system_generalized_summaries
             # 'test_subset_system_summaries/' \
@@ -446,8 +376,8 @@ class Testing:
                                   batch_size):
 
         start_time = time.time()
-        if not os.path.exists(param.logs_dir):
-            os.makedirs(param.logs_dir)
+        if not os.path.exists(paths.logs_dir):
+            os.makedirs(paths.logs_dir)
         if not os.path.exists(system_summaries_file_dir):
             os.makedirs(system_summaries_file_dir)
 
@@ -458,7 +388,7 @@ class Testing:
             system_summaries_file_dir, time_id, model_name, system_summaries_filename_suffix)
         # now = datetime.datetime.now()
         logfile_name = str(now.strftime(model_name + '_%Y%m%d_%H%M_test_logs.txt'))
-        logfile_path = param.logs_dir + logfile_name
+        logfile_path = paths.logs_dir + logfile_name
         logfile_writer = open(logfile_path, 'w+', encoding='utf8')
 
         print_str = 'generate_system_summaries()\n\tmode: {}\n\tmodel_name: {}\n\tmodel_dir: {}\n' \
@@ -485,7 +415,7 @@ class Testing:
                          '\tkeep_prob = ' + str(param.keep_prob) + '\n' + \
                          '\tforward_only = ' + str(True) + '\n' + \
                          '\tusing_word2vec_embeddings = ' + str(param.using_word2vec_embeddings) + '\n' + \
-                         '\tword_embeddings = ' + str(param.word_embendings) + '\n' + \
+                         '\tword_embeddings = ' + str(paths.word_embendings) + '\n' + \
                          '\ttrain_restore_saved_model = ' + str(param.train_restored_saved_model) + '\n'
 
         print_str = 'Logs\nLogs File: {}\nMode: {}\nModel: {}\nstarting: {}\nParameters:\n{}\n' \

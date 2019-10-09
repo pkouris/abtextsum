@@ -16,21 +16,29 @@ from sklearn.utils import shuffle
 from validation import Validation
 import signal
 import sys
+import paths
 
 
 
 class Train:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-model', default="", help="\nmodel values: lg100d5, lg200d5, neg100, neg200...\n"
+                                                   "e.g. python train.py -model neg100")
+
+    def get_args(self):
+        return self.parser.parse_args()
 
     def __init__(self):
-        self.train(x_chunks_dir=param.x_dir,
-                   y_chunks_dir=param.y_dir,
+        args = self.get_args()
+        self.train(x_chunks_dir=paths.x_dir,
+                   y_chunks_dir=paths.y_dir,
                    # training_size=param.training_size,
                    model_name=param.model_name,
-                   logs_dir=param.logs_dir,
-                   mode=param.mode,
+                   logs_dir=paths.logs_dir,
+                   mode='train',
                    batch_size=param.batch_size,
-                   model_dir=param.model_dir,
-                   official_perl_rouge=param.validation_official_perl_rouge,
+                   model_dir=paths.model_dir,
+                   official_perl_rouge=paths.validation_official_perl_rouge,
                    start_epoch_no=param.start_epoch_no,
                    #training_on_collocations=param.training_on_collocations
                    )
@@ -46,7 +54,7 @@ class Train:
                      '\tkeep_prob = ' + str(param.keep_prob) + '\n' + \
                      '\tforward_only = ' + str(False) + '\n' + \
                      '\tusing_word2vec_embeddings = ' + str(param.using_word2vec_embeddings) + '\n' + \
-                     '\tword_embeddings = ' + str(param.word_embendings) + '\n' + \
+                     '\tword_embeddings = ' + str(paths.word_embendings) + '\n' + \
                      '\ttrain_restore_saved_model = ' + str(param.train_restored_saved_model) + '\n'
 
     def train(self, x_chunks_dir, y_chunks_dir, model_name, logs_dir, mode, batch_size, model_dir,
@@ -99,7 +107,7 @@ class Train:
 
             print("Loading word2vec...")
             word2vec_embeddings = Model.get_init_embedding(int2word_dict, param.embedding_dim,
-                                                           param.word2vec_file_path)
+                                                           paths.word2vec_file_path)
             print_str = 'Word embeddings have been loaded.\n'
             print(print_str, end='')
             logfile_writer_w.write(print_str)
@@ -122,7 +130,7 @@ class Train:
             if param.train_restored_saved_model and os.path.exists(model_dir + model_checkpoint_filename):
                 print('Restoring the saved model.')
                 logfile_writer_w.write('Restoring the saved model.\n')
-                ckpt = tf.train.get_checkpoint_state(checkpoint_dir=param.model_dir,
+                ckpt = tf.train.get_checkpoint_state(checkpoint_dir=paths.model_dir,
                                                      latest_filename=model_checkpoint_filename)
                 saver.restore(sess, ckpt.model_checkpoint_path)
             else:
@@ -361,7 +369,7 @@ class Train:
         logfile_writer.write(print_str)
         logfile_writer.close()
         # Plot
-        chart_file = param.chart_dir + param.model_name + str(now.strftime("_%Y%m%d_%H%M_train_charts.pdf"))
+        chart_file = paths.chart_dir + param.model_name + str(now.strftime("_%Y%m%d_%H%M_train_charts.pdf"))
         figure(1)
         subplot(311)
         plot(range(1, len(avg_loss_per_batches_list) + 1), avg_loss_per_batches_list)
@@ -425,9 +433,9 @@ class Train:
             yield inputs[start_index:end_index], outputs[start_index:end_index]
 
     def load_training_data(self):
-        word2int_dict = self.read_pickle_file(param.train_data_dir + 'word2int_dict.pickle')
-        int2word_dict = self.read_pickle_file(param.train_data_dir + 'int2word_dict.pickle')
-        maxlen = self.read_pickle_file(param.train_data_dir + 'maxlen.pickle')
+        word2int_dict = self.read_pickle_file(paths.train_data_dir + 'word2int_dict.pickle')
+        int2word_dict = self.read_pickle_file(paths.train_data_dir + 'int2word_dict.pickle')
+        maxlen = self.read_pickle_file(paths.train_data_dir + 'maxlen.pickle')
         # for k, b in zip(maxlen.keys(), maxlen.values):
         article_max_len = maxlen['article_max_len']
         summary_max_len = maxlen['summary_max_len']

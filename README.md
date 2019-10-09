@@ -48,31 +48,30 @@ The _word_freq_hypernym_paths()_ method produces a file which contains a vocabul
 
 1. Building dataset for training, validation and testing<br/>
 The _BuildDataset_ class (_build_dataset.py_ file) creates the files which are given as input to the deep learning model for training, validation or testing. The hyperparameters should be set accordingly.
+For creating the dataset, the appropriate files paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands: for building the training dataset ```python build_dataset.py -mode train -model lg100d5g```, for building the validation dataset ```python build_dataset.py -mode validation -model lg100d5g``` and for building the testing dataset ```python build_dataset.py -mode test -model lg100d5g```, where the argument _-model_ specifies the employed generalization strategy.
+
 
 
 1. Training<br/>
 The process of training is performed by _Train_ Class (file _train_v2.py_) having set the hyperparameters accordingly. The files which are produced from the previous step of Building dataset are used as input in this phase of training.
-
+The process of training is performed by the command: ```python train.py -model neg100```, where the argument -model specifies the employed generalization strategy..
 
 1. Post-processing of generalized summaries<br/>
 In the phase of testing, the task of post-processing of the generalized summaries, which are produced by the deep learning model, is required to replace the generalized concepts of the generalized summary with the specific ones from the corresponding original articles. This task is performed by _PostProcessing_ class by setting the parameters in _\_\_init\_\_()_ method accordingly. More specifically, the mode should be set to _"lg"_ or _"neg"_ according to the employed text generalization strategy. Also, the hyperparameters of _neg_postprocessing()_ and _lg_postprocessing()_ methods for file paths, text similarity function and the context window should be set accordingly.
 
 
 1. Testing<br/>
-The _Testing_ class (file _testing.py_) performs the process of testing of this framework. For the _Gigaword_ dataset, a subset of its test set (e.g. 4000 instances) should be used in order to evaluate the framework while for the _DUC_ dataset, the whole set of instances is used. The _Testing_ class requires the official _ROUGE package_ for measuring the performance of the proposed framework.<br/><br/>
+The _Testing_ class (file _testing.py_) performs the process of testing of this framework. For the _Gigaword_ dataset, a subset of its test set (e.g. 4000 instances) should be used in order to evaluate the framework while for the _DUC_ dataset, the whole set of instances is used. The _Testing_ class requires the official _ROUGE package_ for measuring the performance of the proposed framework.<br/>
+In order to perform the task of testing, the appropriate file paths should be set in the _\_\_init\_\_()_ of _Testing_ class running one of the following modes; testing for gigaword: ```python testing.py -mode gigaword```, testing for duc: ```python testing.py -mode duc``` and testing for duc capped to 75 bytes: ```python testing.py -mode duc75b```<br/><br/>
 
-**Setting parameters and functionality**<br/>
-The values of hyperparameters, the generalization strategy as well as the paths of the corresponding files should be specified in the file _parameters.py_. Also, this file provides the option of selecting the functionality (_mode_) of building dataset, training or testing which may be performed by running the _main_ class. In particular, by setting in line 43 of the file _parameters.py_ the desired _mode_, the _main_ class performs the corresponding functionality (e.g. building dataset, training or testing) according to the values of the hyperparameters that have been set in _parameters.py_ file. Additionally, a file with word embeddings (e.g. _word2vec_) is required where its file path and the dimension of the vectors (e.g. 300) should be specified in the file _parameters.py_.<br/><br/>
 
-**Code requirements**<br/>
-python 3.5<br/>
-tensorflow 1.14<br/>
-gensim<br/>
-nltk<br/>
-pycontractions 2.0.0<br/>
-scikit-learn<br/>
-pyrouge 0.1.3<br/>
-matplotlib<br/><br/>
+
+**Setting parameters and paths**<br/>
+The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _path.py_, 
+Additionally, a file with word embeddings (e.g. _word2vec_) is required where its file path and the dimension of the vectors (e.g. 300) should be specified in the files _paths.py_ and _parameters.py_, respectively.<br/><br/>
+
+The project was developed in python 3.5 and the required python packages are included in the file _requirements.txt_.
+
 
 The above described code includes the functionality that was used in the experimental procedure of the corresponding paper. However, the proposed framework is not limited by the current implementation as it is based on a well defined theoretical model that may provide the possibility of enhancing its performance by extending or improving this implementation (e.g. using a better taxonomy of concepts, a different machine learning model or an alternative similarity method for the post-processing task). 
 

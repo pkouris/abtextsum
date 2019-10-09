@@ -1,61 +1,74 @@
 import pickle
 import parameters as param
 import os
+import argparse
+import paths
 
 
 class BuildDataset:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-mode', default="", help="\nmode values: train, test, validation, duc_test\n"
+                                                  "e.g. python build_dataset.py -mode train -model lg100d5g")
+    parser.add_argument('-model', default="", help="\nmodel values: lg100d5, lg200d5, neg100, neg200...\n"
+                                                   "e.g. python build_dataset.py -mode test -model neg200g")
+    def get_args(self):
+        return self.parser.parse_args()
 
-    def __init__(self, mode='build_sample_dataset', simple_system_summaries_file_path=''):
+    def __init__(self):
+        args = self.get_args()
+        #if args.mode == '':  # for running in IDE
+        #    args.mode = 'test'
+        #    args.model = 'bg'
 
-        if mode == param.mode_list[1]:
-            self.build_whole_train_dataset_and_dictionary(param.train_data_dir,
-                                                          param.train_article_file_path,
-                                                          param.train_title_file_path,
-                                                          param.x_chunks_dir,
-                                                          param.y_chunks_dir,
-                                                          param.x_txt_dir,
-                                                          param.y_txt_dir,
-                                                          param.x_chunks_sample_dir,
-                                                          param.y_chunks_sample_dir,
-                                                          param.word2int_file_path, param.word2int_txt_file_path,
-                                                          param.int2word_file_path, param.int2word_txt_file_path,
-                                                          param.word_freq_file_path, param.vocab_txt_file_path,
-                                                          param.maxlen_file_path, param.maxlen_txt_file_path,
+
+        if args.mode == 'train':
+            self.build_whole_train_dataset_and_dictionary(paths.train_data_dir,
+                                                          paths.train_article_file_path,
+                                                          paths.train_title_file_path,
+                                                          paths.x_chunks_dir,
+                                                          paths.y_chunks_dir,
+                                                          paths.x_txt_dir,
+                                                          paths.y_txt_dir,
+                                                          paths.x_chunks_sample_dir,
+                                                          paths.y_chunks_sample_dir,
+                                                          paths.word2int_file_path, paths.word2int_txt_file_path,
+                                                          paths.int2word_file_path, paths.int2word_txt_file_path,
+                                                          paths.word_freq_file_path, paths.vocab_txt_file_path,
+                                                          paths.maxlen_file_path, paths.maxlen_txt_file_path,
                                                           param.lines_per_chunk, param.read_lines)
-        elif mode == param.mode_list[2]:
-            self.build_validation_or_testing_dataset(param.validation_article_file_path,
-                                                     param.validation_data_dir,
-                                                     param.validation_rouge_results_dir,
-                                                     param.validation_system_summaries_dir,
-                                                     param.word2int_file_path,
-                                                     param.int2word_file_path,
-                                                     param.maxlen_file_path,
+        elif args.mode == 'validation':
+            self.build_validation_or_testing_dataset(paths.validation_article_file_path,
+                                                     paths.validation_data_dir,
+                                                     paths.validation_rouge_results_dir,
+                                                     paths.validation_system_summaries_dir,
+                                                     paths.word2int_file_path,
+                                                     paths.int2word_file_path,
+                                                     paths.maxlen_file_path,
                                                      purpose='validation')
-        elif mode == param.mode_list[3]:
-            self.build_validation_or_testing_dataset(param.test_article_file_path,
-                                                     param.test_data_dir,
-                                                     param.test_rouge_results_dir,
-                                                     param.test_system_summaries_dir,
-                                                     param.word2int_file_path,
-                                                     param.int2word_file_path,
-                                                     param.maxlen_file_path,
+        elif args.mode == 'test':
+            self.build_validation_or_testing_dataset(paths.test_article_file_path,
+                                                     paths.test_data_dir,
+                                                     paths.test_rouge_results_dir,
+                                                     paths.test_system_summaries_dir,
+                                                     paths.word2int_file_path,
+                                                     paths.int2word_file_path,
+                                                     paths.maxlen_file_path,
                                                      purpose='test')
-        elif mode == param.mode_list[6]:
-            self.build_validation_or_testing_dataset(param.test_duc_article_file_path,
-                                                     param.test_duc_data_dir,
-                                                     param.test_duc_rouge_results_dir,
-                                                     param.test_duc_system_summaries_dir,
-                                                     param.word2int_file_path,
-                                                     param.int2word_file_path,
-                                                     param.maxlen_file_path,
+        elif args.mode == 'duc_test':
+            self.build_validation_or_testing_dataset(paths.test_duc_article_file_path,
+                                                     paths.test_duc_data_dir,
+                                                     paths.test_duc_rouge_results_dir,
+                                                     paths.test_duc_system_summaries_dir,
+                                                     paths.word2int_file_path,
+                                                     paths.int2word_file_path,
+                                                     paths.maxlen_file_path,
                                                      purpose='test')
 
         else:
-            print('No available mode for build dataset')
+            print("\nmode values: train, test, validation, duc_test\n"
+                  "e.g. python build_dataset.py -mode train -model lg100d5")
 
-        # create sample dataset
-        if mode == 'build_sample_dataset':
-            print('build_sample_dataset')
+
 
     @staticmethod
     def num_of_lines_of_file(file):
@@ -67,7 +80,7 @@ class BuildDataset:
         return count
 
     @staticmethod
-    def view_some_lines(file=param.train_article_file_path, from_line=1, to_line=5):
+    def view_some_lines(file=paths.train_article_file_path, from_line=1, to_line=5):
         with open(file, 'r', encoding='utf8') as f:
             line_index = 0
             for line in f:
@@ -413,10 +426,10 @@ class BuildDataset:
         print('(7/8) X has been written to txt file: {}.'.format(data_dir + "x_" + purpose + ".txt"))
 
         if simple_to_full:
-            dir = param.test_dir
+            dir = paths.test_dir
             prefix = 'test_subset'
             if purpose == 'validation':
-                dir = param.validation_dir
+                dir = paths.validation_dir
                 prefix = purpose
 
             read_file = dir + '{}_{}_titles.txt'.format(prefix, param.full_summary_model_id)
@@ -446,8 +459,8 @@ class BuildDataset:
                 lines_list.append(line)
         return lines_list
 
-    def create_sample_training_set(self, x_dir=param.x_chunks_dir, y_dir=param.y_chunks_dir,
-                                   x_sample_dir=param.x_chunks_sample_dir, y_sample_dir=param.y_chunks_sample_dir,
+    def create_sample_training_set(self, x_dir=paths.x_chunks_dir, y_dir=paths.y_chunks_dir,
+                                   x_sample_dir=paths.x_chunks_sample_dir, y_sample_dir=paths.y_chunks_sample_dir,
                                    training_size=100, num_of_files=3):
         x_chunked_filenames_list = os.listdir(x_dir)
         y_chunked_filenames_list = os.listdir(y_dir)
