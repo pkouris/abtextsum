@@ -30,7 +30,7 @@ According to the paper, the initial dataset is preprocessed furthermore and gene
 <br/>
 In the phase of testing, a generalized article (e.g. an article of the test set) is given as input to the deep learning model which predicts the respective generalized summary. Then, in the phase of post-processing, the generalized concepts of the generalized summary are replaced by the specific concepts of the original (preprocessed) article producing the final summary.<br/><br/>  
 
-More specifically, the main steps of this framework are as follows:
+The workflow of this framework follows:
 
 1. Preprocessing of the dataset<br/> 
 The task of preprocessing of the dataset is performed by _DataPreprocessing_ class (_preprocessing.py_ file). The method _clean_dataset()_ is used for preprocessing the _Gigaword_ dataset while the method _clean_duc_dataset_from_original_to_cleaned()_ is used for _DUC_ dataset. 
@@ -70,7 +70,7 @@ In order to perform the task of testing, the appropriate file paths should be se
    1. Testing for duc capped to 75 bytes: ```python testing.py -mode duc75b```
 
 **Setting parameters and paths**<br/>
-The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _paths.py_, 
+The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _paths.py_. </br> 
 Additionally, a file with word embeddings (e.g. _word2vec_) is required where its file path and the dimension of the vectors (e.g. 300) should be specified in the files _paths.py_ and _parameters.py_, respectively.<br/><br/>
 
 The project was developed in python 3.5 and the required python packages are included in the file _requirements.txt_.
