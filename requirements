@@ -1,9 +1,0 @@
-#The project is developed in python 3.5
-python 3.5
-tensorflow 1.14
-gensim
-nltk
-pycontractions 2.0.0
-scikit-learn
-pyrouge 0.1.3
-matplotlib
