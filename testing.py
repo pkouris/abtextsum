@@ -29,7 +29,7 @@ class Testing:
 
 
         if args.mode == 'gigaword':
-            temp_dir = 'C:/datasets/textsum/gigaword/temp/'
+            temp_dir = 'path/to/dir'  # 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'
 
             model_summaries_file_path = 'docs/golden_sum'
@@ -55,7 +55,7 @@ class Testing:
                 rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
 
         elif args.mode == 'duc':
-            temp_dir = 'C:/datasets/textsum/gigaword/temp/'
+            temp_dir = 'path/to/dir'  # 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'  # system_generalized summary
             start_time = time.time()
             self.make_rouge_files_for_duc(system_summaries_file_path=system_summaries_file_path,
@@ -84,7 +84,7 @@ class Testing:
                 rouge_system_summaries_dir=temp_dir + 'rouge_system_summaries/',
                 rouge_model_summaries_dir=temp_dir + 'rouge_model_summaries/')
         elif args.mode == 'duc75b':
-            temp_dir = 'C:/datasets/textsum/gigaword/temp/'
+            temp_dir = 'path/to/dir'  # 'C:/datasets/textsum/gigaword/temp/'
             system_summaries_file_path = 'docs/output_sum'  # system_generalized_summaries
             # 'test_subset_system_summaries/' \
             # 'lemmagener_test_subset_system_summaries.txt'
