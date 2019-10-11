@@ -48,7 +48,7 @@ The _word_freq_hypernym_paths()_ method produces a file that contains a vocabula
 
 1. Building dataset for training, validation and testing<br/>
 The _BuildDataset_ class (_build_dataset.py_ file) creates the files which are given as input to the deep learning model for training, validation or testing.
-</br>To build the dataset, the appropriate file paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands, where the argument _-model_ specifies the employed generalization strategy (e.g. lg100d5 or neg100). 
+</br>To build the dataset, the appropriate file paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands, where the argument _-model_ specifies the employed generalization strategy (e.g. lg100d5, neg100 etc.). 
    1. Building the training dataset: ```python build_dataset.py -mode train -model lg100d5g```
    1. Building the validation dataset: ```python build_dataset.py -mode validation -model lg100d5g``` 
    1. Building the testing dataset: ```python build_dataset.py -mode test -model lg100d5g```
@@ -56,7 +56,7 @@ The _BuildDataset_ class (_build_dataset.py_ file) creates the files which are g
 
 1. Training<br/>
 The process of training is performed by _Train_ Class (file _train_v2.py_) having set the hyperparameters accordingly. The files which are produced from the previous step of Building dataset are used as input in this phase of training.
-The process of training is performed by the command: ```python train.py -model neg100```, where the argument -model specifies the employed generalization strategy (e.g. lg100d5 or neg100).
+The process of training is performed by the command: ```python train.py -model neg100```, where the argument -model specifies the employed generalization strategy (e.g. lg100d5, neg100 etc.).
 
 1. Post-processing of generalized summaries<br/>
 In the phase of testing, the task of post-processing of the generalized summaries, which are produced by the deep learning model, is required to replace the generalized concepts of the generalized summary with the specific ones from the corresponding original articles. This task is performed by _PostProcessing_ class by setting the parameters in _\_\_init\_\_()_ method accordingly. More specifically, the mode should be set to _"lg"_ or _"neg"_ according to the employed text generalization strategy. Also, the hyperparameters of _neg_postprocessing()_ and _lg_postprocessing()_ methods for file paths, text similarity function and the context window should be set accordingly.
@@ -76,20 +76,3 @@ Additionally, a file with word embeddings (e.g. _word2vec_) is required where it
 The project was developed in python 3.5 and the required python packages are included in the file _requirements.txt_.
 
 The above described code includes the functionality that was used in the experimental procedure of the corresponding paper. However, the proposed framework is not limited by the current implementation as it is based on a well defined theoretical model that may provide the possibility of enhancing its performance by extending or improving this implementation (e.g. using a better taxonomy of concepts, a different machine learning model or an alternative similarity method for the post-processing task). 
-
-<!--
-```
-@inproceedings{kouris-etal-2019-abstractive,
-    title = "Abstractive Text Summarization Based on Deep Learning and Semantic Content Generalization",
-    author = "Kouris, Panagiotis  and Alexandridis, Georgios  and Stafylopatis, Andreas",
-    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
-    month = jul,
-    year = "2019",
-    address = "Florence, Italy",
-    publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/P19-1501",
-    pages = "5082--5092",
-    abstract = "This work proposes a novel framework for enhancing abstractive text summarization based on the combination of deep learning techniques along with semantic data transformations. Initially, a theoretical model for semantic-based text generalization is introduced and used in conjunction with a deep encoder-decoder architecture in order to produce a summary in generalized form. Subsequently, a methodology is proposed which transforms the aforementioned generalized summary into human-readable form, retaining at the same time important informational aspects of the original text and addressing the problem of out-of-vocabulary or rare words. The overall approach is evaluated on two popular datasets with encouraging results.",
-}
-```
--->
