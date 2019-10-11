@@ -43,18 +43,18 @@ Firstly, part-of-speach tagging is required which is performed by _pos_tagging_o
 The annotation of named entities is performed by _ner_of_dataset_and_vocabulary_of_ner_words()_ method for _Gigaword_ dataset and _ner_of_duc_dataset_and_vocab_of_ne()_ method for _DUC_ dataset. Then the methods _conver_dataset_with_ner_from_stanford_and_wordnet()_ for _Gigaword_ dataset and _conver_duc_dataset_with_ner_from_stanford_and_wordnet()_ for _DUC_ dataset generalize these datasets according to _NEG_ strategy having set the parameters accordingly. 
 
    1. LG Strategy<br/> 
-The _word_freq_hypernym_paths()_ method produces a file which contains a vocabulary with the frequency and the hypernym path of each word. Then this file is used by _vocab_based_on_hypernyms()_ method in order to produce a file which contains a vocabulary with those words that are candidates for generalization. Finally, for the _Gigaword_ dataset, the _convert_dataset_to_general()_ method produces the files with summary-article pairs which constitute the generalized dataset, while for _DUC_ dataset the _convert_duc_dataset_based_on_level_of_generalizetion()_ method is used. The hyperparameters of these methods should be set accordingly.
+The _word_freq_hypernym_paths()_ method produces a file that contains a vocabulary with the frequency and the hypernym path of each word. Then this file is used by _vocab_based_on_hypernyms()_ method in order to produce a file that contains a vocabulary with those words that are candidates for generalization. Finally, for the _Gigaword_ dataset, the _convert_dataset_to_general()_ method produces the files with summary-article pairs which constitute the generalized dataset, while for _DUC_ dataset the _convert_duc_dataset_based_on_level_of_generalizetion()_ method is used. The hyperparameters of these methods should be set accordingly.
 
 
 1. Building dataset for training, validation and testing<br/>
 The _BuildDataset_ class (_build_dataset.py_ file) creates the files which are given as input to the deep learning model for training, validation or testing. The hyperparameters should be set accordingly.
-For creating the dataset, the appropriate files paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands: for building the training dataset ```python build_dataset.py -mode train -model lg100d5g```, for building the validation dataset ```python build_dataset.py -mode validation -model lg100d5g``` and for building the testing dataset ```python build_dataset.py -mode test -model lg100d5g```, where the argument _-model_ specifies the employed generalization strategy.
+</br>For creating the dataset, the appropriate files paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands: for building the training dataset ```python build_dataset.py -mode train -model lg100d5g```, for building the validation dataset ```python build_dataset.py -mode validation -model lg100d5g``` and for building the testing dataset ```python build_dataset.py -mode test -model lg100d5g```, where the argument _-model_ specifies the employed generalization strategy (e.g. lg100d5 or neg100).
 
 
 
 1. Training<br/>
 The process of training is performed by _Train_ Class (file _train_v2.py_) having set the hyperparameters accordingly. The files which are produced from the previous step of Building dataset are used as input in this phase of training.
-The process of training is performed by the command: ```python train.py -model neg100```, where the argument -model specifies the employed generalization strategy..
+The process of training is performed by the command: ```python train.py -model neg100```, where the argument -model specifies the employed generalization strategy (e.g. lg100d5 or neg100).
 
 1. Post-processing of generalized summaries<br/>
 In the phase of testing, the task of post-processing of the generalized summaries, which are produced by the deep learning model, is required to replace the generalized concepts of the generalized summary with the specific ones from the corresponding original articles. This task is performed by _PostProcessing_ class by setting the parameters in _\_\_init\_\_()_ method accordingly. More specifically, the mode should be set to _"lg"_ or _"neg"_ according to the employed text generalization strategy. Also, the hyperparameters of _neg_postprocessing()_ and _lg_postprocessing()_ methods for file paths, text similarity function and the context window should be set accordingly.
@@ -67,7 +67,7 @@ In order to perform the task of testing, the appropriate file paths should be se
 
 
 **Setting parameters and paths**<br/>
-The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _path.py_, 
+The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _paths.py_, 
 Additionally, a file with word embeddings (e.g. _word2vec_) is required where its file path and the dimension of the vectors (e.g. 300) should be specified in the files _paths.py_ and _parameters.py_, respectively.<br/><br/>
 
 The project was developed in python 3.5 and the required python packages are included in the file _requirements.txt_.
