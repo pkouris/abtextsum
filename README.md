@@ -49,9 +49,9 @@ The _word_freq_hypernym_paths()_ method produces a file that contains a vocabula
 1. Building dataset for training, validation and testing<br/>
 The _BuildDataset_ class (_build_dataset.py_ file) creates the files which are given as input to the deep learning model for training, validation or testing.
 </br>To build the dataset, the appropriate file paths should be set in the _\_\_inint\_\_()_ of _BuildDataset_ class executing the following commands, where the argument _-model_ specifies the employed generalization strategy (e.g. lg100d5 or neg100). 
-   1. For building the training dataset ```python build_dataset.py -mode train -model lg100d5g```
-   1. For building the validation dataset ```python build_dataset.py -mode validation -model lg100d5g``` 
-   1. For building the testing dataset ```python build_dataset.py -mode test -model lg100d5g```
+   1. Building the training dataset: ```python build_dataset.py -mode train -model lg100d5g```
+   1. Building the validation dataset: ```python build_dataset.py -mode validation -model lg100d5g``` 
+   1. Building the testing dataset: ```python build_dataset.py -mode test -model lg100d5g```
  
 
 1. Training<br/>
@@ -65,16 +65,15 @@ In the phase of testing, the task of post-processing of the generalized summarie
 1. Testing<br/>
 The _Testing_ class (file _testing.py_) performs the process of testing of this framework. For the _Gigaword_ dataset, a subset of its test set (e.g. 4000 instances) should be used in order to evaluate the framework while for the _DUC_ dataset, the whole set of instances is used. The _Testing_ class requires the official _ROUGE package_ for measuring the performance of the proposed framework.<br/>
 In order to perform the task of testing, the appropriate file paths should be set in the _\_\_init\_\_()_ of _Testing_ class running one of the following modes: 
-   1. testing for gigaword: ```python testing.py -mode gigaword``` 
-   1. testing for duc: ```python testing.py -mode duc``` 
-   1. testing for duc capped to 75 bytes: ```python testing.py -mode duc75b```
+   1. Testing for gigaword: ```python testing.py -mode gigaword``` 
+   1. Testing for duc: ```python testing.py -mode duc``` 
+   1. Testing for duc capped to 75 bytes: ```python testing.py -mode duc75b```
 
 **Setting parameters and paths**<br/>
 The values of hyperparameters should be specified in the file _parameters.py_, while the paths of the corresponding files should be set in the file _paths.py_, 
 Additionally, a file with word embeddings (e.g. _word2vec_) is required where its file path and the dimension of the vectors (e.g. 300) should be specified in the files _paths.py_ and _parameters.py_, respectively.<br/><br/>
 
 The project was developed in python 3.5 and the required python packages are included in the file _requirements.txt_.
-
 
 The above described code includes the functionality that was used in the experimental procedure of the corresponding paper. However, the proposed framework is not limited by the current implementation as it is based on a well defined theoretical model that may provide the possibility of enhancing its performance by extending or improving this implementation (e.g. using a better taxonomy of concepts, a different machine learning model or an alternative similarity method for the post-processing task). 
 
