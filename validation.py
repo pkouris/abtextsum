@@ -5,7 +5,7 @@ import parameters as param
 from pyrouge import Rouge155
 import rouge
 import traceback
-
+import paths
 
 class Validation:
     rouge_dict = dict()
@@ -20,9 +20,9 @@ class Validation:
                                        official_perl_rouge=True):
         system_summaries_file_path = self.predict_system_summaries(sess,
                                                                    model_validation,
-                                                                   param.validation_data_dir + 'x_validation.pickle',
-                                                                   param.validation_system_summaries_dir,
-                                                                   param.validation_system_summaries_filename_id,
+                                                                   paths.validation_data_dir + 'x_validation.pickle',
+                                                                   paths.validation_system_summaries_dir,
+                                                                   paths.validation_system_summaries_filename_id,
                                                                    int2word_dict,
                                                                    batch_size,
                                                                    file_prefix)
@@ -30,22 +30,22 @@ class Validation:
         rouge_scores_dict = dict()
         if official_perl_rouge:
             self.make_rouge_files(system_summaries_file_path=system_summaries_file_path,
-                                  model_summaries_file_path=param.validation_summary_file_path,
-                                  rouge_system_summaries_dir=param.validation_rouge_system_summaries_dir,
-                                  rouge_model_summaries_dir=param.validation_rouge_model_summaries_dir)
+                                  model_summaries_file_path=paths.validation_summary_file_path,
+                                  rouge_system_summaries_dir=paths.validation_rouge_system_summaries_dir,
+                                  rouge_model_summaries_dir=paths.validation_rouge_model_summaries_dir)
 
             rouge_scores_dict = \
-                self.rouge_scores(system_summaries_dir=param.validation_rouge_system_summaries_dir,
-                                  model_summaries_dir=param.validation_rouge_model_summaries_dir,
-                                  evaluation_results_dir=param.validation_rouge_results_dir,
-                                  evaluation_results_filename=param.validation_rouge_results_filename_suffix,
+                self.rouge_scores(system_summaries_dir=paths.validation_rouge_system_summaries_dir,
+                                  model_summaries_dir=paths.validation_rouge_model_summaries_dir,
+                                  evaluation_results_dir=paths.validation_rouge_results_dir,
+                                  evaluation_results_filename=paths.validation_rouge_results_filename_suffix,
                                   file_id_str=file_prefix)
         else:
             rouge_scores_dict = \
                 self.python_pyrouge_scores(system_summaries_file_path=system_summaries_file_path,
-                                           model_summaries_file_path=param.validation_summary_file_path,
-                                           evaluation_results_dir=param.validation_rouge_results_dir,
-                                           evaluation_results_filename=param.validation_rouge_results_filename_suffix,
+                                           model_summaries_file_path=paths.validation_summary_file_path,
+                                           evaluation_results_dir=paths.validation_rouge_results_dir,
+                                           evaluation_results_filename=paths.validation_rouge_results_filename_suffix,
                                            file_id_str=file_prefix)
         return rouge_scores_dict
 
