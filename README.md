@@ -4,8 +4,8 @@ This source code has been used in the experimental procedure of the following pa
 Panagiotis Kouris, Georgios Alexandridis, Andreas Stafylopatis. 2019. Abstractive text summarization based on deep learning and semantic content generalization. _In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics_, pp. 5082-5092.<br/>
 <br/>
 
-
 This paper is accessible in the [Proceedings of the 57th ACL Annual Meeting (2019)](https://www.aclweb.org/anthology/events/acl-2019/) or directly from [here](https://www.aclweb.org/anthology/P19-1501). 
+
 <br/> For citing, the BibTex follows:
 ```
 @inproceedings{kouris2019abstractive,
