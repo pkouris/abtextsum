@@ -541,4 +541,4 @@ class Testing:
 
 
 if __name__ == '__main__':
-    Testing(testing_mode='rouge_of_individual_files')
+    Testing()

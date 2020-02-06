@@ -495,3 +495,6 @@ class Train:
             count += len(x_temp)
         print('instances: {}'.format(count))
         return count
+
+if __name__ == '__main__':
+    Train()
